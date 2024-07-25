@@ -15,7 +15,8 @@ def evaluate_models():
     
     # Подготовка тестовых промптов
     dataset = load_imdb_dataset()
-    test_prompts = [text[:config['evaluation']['max_test_length']] for text in dataset['test']['text'][:config['evaluation']['num_test_samples']]]
+    test_prompts = dataset['test']['text'][:config['evaluation']['num_test_samples']]
+    test_prompts = [text[:config['evaluation']['max_test_length']] for text in test_prompts]
     
     # Генерация завершений
     with torch.no_grad():

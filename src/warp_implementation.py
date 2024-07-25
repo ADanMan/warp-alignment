@@ -32,7 +32,8 @@ def train_warp():
     
     # Подготовка данных
     dataset = load_imdb_dataset()
-    prompts = [text[:config['data']['max_length']] for text in dataset['train']['text']]
+    prompts = dataset['train']['text'][:config['data']['max_samples']]
+    prompts = [text[:config['data']['max_length']] for text in prompts]
     
     # Параметры WARP
     I, M, T = config['warp']['I'], config['warp']['M'], config['warp']['T']
