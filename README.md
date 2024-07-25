@@ -45,7 +45,7 @@ warp-alignment/
 
 1. Клонируйте репозиторий:
    ```
-   git clone https://github.com/ваш-username/warp-alignment.git
+   git clone https://github.com/ADanMan/warp-alignment.git
    cd warp-alignment
    ```
 
@@ -98,3 +98,7 @@ pytest tests/
 ## Отчет
 
 Подробный отчет о проведенных экспериментах и анализ результатов доступен в файле [report.md](report.md).
+
+## Лицензия
+
+Этот проект распространяется под лицензией MIT. Подробности см. в файле [LICENSE](LICENSE).

@@ -2,15 +2,14 @@ import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, AutoModelForSequenceClassification
 from data_preparation import load_config, load_imdb_dataset
 
+def warp_update(theta_init, theta_m, theta_ema, r_beta, eta, mu):
+    """Логика обновления WARP"""
+    theta = theta_init + eta * (theta_m - theta_init)
+    theta_ema = mu * theta_ema + (1 - mu) * theta
+    return theta, theta_ema
+
 def slerp(theta_init, theta_m_list, lam):
-    """
-    Сферическая линейная интерполяция (Spherical Linear Interpolation, SLERP)
-    
-    :param theta_init: Начальные веса модели
-    :param theta_m_list: Список весов моделей после M прогонов
-    :param lam: Параметр интерполяции
-    :return: Интерполированные веса
-    """
+    """Сферическая линейная интерполяция"""
     def slerp_two(p0, p1, t):
         omega = torch.arccos((p0 * p1).sum() / (p0.norm() * p1.norm()))
         so = torch.sin(omega)
@@ -21,17 +20,6 @@ def slerp(theta_init, theta_m_list, lam):
         result = slerp_two(result, theta_m, lam)
     
     return result
-
-def warp_update(theta_init, theta_m, theta_ema, r_beta, eta, mu):
-    """Логика обновления WARP"""
-    theta = theta_init + eta * (theta_m - theta_init)
-    theta_ema = mu * theta_ema + (1 - mu) * theta
-    return theta, theta_ema
-
-def slerp(theta_init, theta_m_list, lam):
-    """Сферическая линейная интерполяция"""
-    # Реализация SLERP
-    pass
 
 def train_warp():
     """Обучение с использованием WARP"""
