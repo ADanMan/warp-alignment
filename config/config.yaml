@@ -1,0 +1,25 @@
+data:
+  dataset_name: "imdb"
+  max_length: 512
+
+reward_model:
+  model_name: "distilbert-base-cased"
+  num_train_epochs: 3
+  output_dir: "results/models/reward_model"
+
+warp:
+  model_name: "gpt2"
+  I: 2  # количество итераций
+  M: 2  # количество RL запусков
+  T: 100  # количество шагов обучения
+  mu: 0.01  # EMA скорость обновления
+  lam: 0.5  # SLERP параметр
+  eta: 0.5  # LITI скорость обновления
+
+evaluation:
+  num_test_samples: 100
+  max_test_length: 20
+
+hyperparameter_experiment:
+  parameter: "eta"
+  values: [0.1, 0.5, 0.9]
